@@ -13,7 +13,14 @@ migrate = Migrate()
 
 def create_app():
     """Create and configure the Flask application"""
-    app = Flask(__name__, instance_relative_config=True)
+    # Get the parent directory (project root) from the app package
+    import os
+    basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    
+    app = Flask(__name__, 
+                instance_relative_config=True,
+                template_folder=os.path.join(basedir, 'templates'),
+                static_folder=os.path.join(basedir, 'static'))
     
     # Configuration
     app.config['SECRET_KEY'] = 'dev-secret-key-change-in-production'
