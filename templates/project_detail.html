@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }} - Portfolio{% endblock %}
+
+{% block content %}
+<!-- Project Header -->
+<section class="page-header py-5 bg-primary text-white">
+    <div class="container">
+        <div class="text-center" data-aos="fade-down">
+            <span class="badge bg-light text-dark mb-3">{{ project.category }}</span>
+            <h1 class="display-4 fw-bold mb-3">{{ project.title }}</h1>
+            <p class="lead">{{ project.date.strftime('%B %d, %Y') }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Project Details -->
+<section class="project-detail py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Project Image -->
+                <div class="project-image mb-5" data-aos="fade-up">
+                    <img src="{{ project.image or 'https://via.placeholder.com/800x500/6366f1/ffffff?text=' + project.title }}" alt="{{ project.title }}" class="img-fluid rounded shadow">
+                </div>
+                
+                <!-- Description -->
+                <div class="project-description mb-5" data-aos="fade-up">
+                    <h2 class="h3 mb-4">Project Overview</h2>
+                    <p class="lead">{{ project.description }}</p>
+                </div>
+                
+                <!-- Features -->
+                {% if project.feature_list %}
+                <div class="project-features mb-5" data-aos="fade-up">
+                    <h2 class="h3 mb-4">Key Features</h2>
+                    <ul class="list-group list-group-flush">
+                        {% for feature in project.feature_list %}
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>{{ feature }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                <!-- Action Buttons -->
+                <div class="project-actions mb-5" data-aos="fade-up">
+                    <div class="d-flex gap-3 flex-wrap">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" target="_blank" class="btn btn-dark btn-lg">
+                            <i class="bi bi-github me-2"></i>View on GitHub
+                        </a>
+                        {% endif %}
+                        {% if project.live_demo_url %}
+                        <a href="{{ project.live_demo_url }}" target="_blank" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-up-right me-2"></i>Live Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Project Info -->
+                <div class="card border-0 shadow-sm mb-4" data-aos="fade-left">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Project Information</h5>
+                        
+                        <div class="info-item mb-3">
+                            <h6 class="text-muted mb-2">Category</h6>
+                            <span class="badge bg-primary">{{ project.category }}</span>
+                        </div>
+                        
+                        <div class="info-item mb-3">
+                            <h6 class="text-muted mb-2">Date</h6>
+                            <p class="mb-0">{{ project.date.strftime('%B %Y') }}</p>
+                        </div>
+                        
+                        {% if project.github_url %}
+                        <div class="info-item mb-3">
+                            <h6 class="text-muted mb-2">Repository</h6>
+                            <a href="{{ project.github_url }}" target="_blank" class="text-decoration-none">
+                                <i class="bi bi-github me-1"></i>View Code
+                            </a>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.live_demo_url %}
+                        <div class="info-item">
+                            <h6 class="text-muted mb-2">Live Demo</h6>
+                            <a href="{{ project.live_demo_url }}" target="_blank" class="text-decoration-none">
+                                <i class="bi bi-box-arrow-up-right me-1"></i>Visit Site
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Technologies Used -->
+                <div class="card border-0 shadow-sm mb-4" data-aos="fade-left" data-aos-delay="100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Technologies Used</h5>
+                        <div class="tech-tags">
+                            {% for tech in project.tech_list %}
+                            <span class="badge bg-light text-dark me-2 mb-2">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Share -->
+                <div class="card border-0 shadow-sm" data-aos="fade-left" data-aos-delay="200">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Share Project</h5>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-info">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-success">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Related Projects -->
+        {% if related_projects %}
+        <div class="related-projects mt-5">
+            <h2 class="h3 mb-4" data-aos="fade-up">Related Projects</h2>
+            <div class="row g-4">
+                {% for related in related_projects %}
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                    <div class="card project-card h-100 border-0 shadow-sm">
+                        <div class="card-img-wrapper">
+                            <img src="{{ related.image or 'https://via.placeholder.com/400x300/6366f1/ffffff?text=' + related.title }}" class="card-img-top" alt="{{ related.title }}">
+                            <div class="card-overlay">
+                                <a href="{{ url_for('main.project_detail', slug=related.slug) }}" class="btn btn-light">View Details</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">{{ related.category }}</span>
+                            <h5 class="card-title">{{ related.title }}</h5>
+                            <p class="card-text text-muted">{{ related.description[:80] }}...</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Back Button -->
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="{{ url_for('main.projects') }}" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left me-2"></i>Back to Projects
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

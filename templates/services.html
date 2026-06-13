@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Services - Portfolio{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header py-5 bg-primary text-white">
+    <div class="container">
+        <div class="text-center" data-aos="fade-down">
+            <h1 class="display-4 fw-bold mb-3">My Services</h1>
+            <p class="lead">What I can do for you</p>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Web Development -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <div class="service-icon mb-4">
+                            <i class="bi bi-globe fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="card-title mb-3">Web Development</h4>
+                        <p class="card-text text-muted mb-4">Building modern, responsive websites and web applications with cutting-edge technologies and best practices.</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Responsive Design</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Modern UI/UX</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Fast Performance</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>SEO Optimized</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Backend Development -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <div class="service-icon mb-4">
+                            <i class="bi bi-server fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="card-title mb-3">Backend Development</h4>
+                        <p class="card-text text-muted mb-4">Creating robust, scalable backend systems and APIs using Python, Flask, and modern database technologies.</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>RESTful APIs</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Database Design</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Authentication</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Server Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Automation -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <div class="service-icon mb-4">
+                            <i class="bi bi-gear-fill fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="card-title mb-3">Automation</h4>
+                        <p class="card-text text-muted mb-4">Automating repetitive tasks, workflows, and processes to save time and increase productivity.</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Task Automation</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Web Scraping</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Data Processing</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Workflow Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Telegram Bots -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <div class="service-icon mb-4">
+                            <i class="bi bi-telegram fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="card-title mb-3">Telegram Bots</h4>
+                        <p class="card-text text-muted mb-4">Developing custom Telegram bots for business automation, customer support, and engagement.</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Custom Commands</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Interactive Menus</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Database Integration</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Payment Systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI Integration -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <div class="service-icon mb-4">
+                            <i class="bi bi-cpu fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="card-title mb-3">AI Integration</h4>
+                        <p class="card-text text-muted mb-4">Integrating artificial intelligence and machine learning capabilities into your applications.</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>ChatGPT Integration</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Natural Language Processing</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Image Recognition</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Data Analysis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- API Development -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <div class="service-icon mb-4">
+                            <i class="bi bi-plugin fs-1 text-primary"></i>
+                        </div>
+                        <h4 class="card-title mb-3">API Development</h4>
+                        <p class="card-text text-muted mb-4">Designing and building secure, scalable APIs for seamless integration with other systems.</p>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>RESTful Design</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Documentation</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Authentication</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Rate Limiting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Me Section -->
+<section class="why-choose py-5 bg-light">
+    <div class="container">
+        <div class="section-header text-center mb-5" data-aos="fade-up">
+            <h2 class="display-5 fw-bold mb-3">Why Choose Me?</h2>
+            <p class="lead text-muted">What sets my services apart</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-lightning-charge-fill fs-1 text-primary"></i>
+                    </div>
+                    <h5>Fast Delivery</h5>
+                    <p class="text-muted">Quick turnaround time without compromising quality</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-shield-check fs-1 text-primary"></i>
+                    </div>
+                    <h5>Quality Assurance</h5>
+                    <p class="text-muted">Thoroughly tested and bug-free solutions</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-headset fs-1 text-primary"></i>
+                    </div>
+                    <h5>24/7 Support</h5>
+                    <p class="text-muted">Always available to help with your needs</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-center">
+                    <div class="feature-icon mb-3">
+                        <i class="bi bi-cash-stack fs-1 text-primary"></i>
+                    </div>
+                    <h5>Fair Pricing</h5>
+                    <p class="text-muted">Competitive rates for premium services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-gradient text-white">
+    <div class="container">
+        <div class="row align-items-center" data-aos="fade-up">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-3">Ready to Start Your Project?</h2>
+                <p class="lead mb-0">Let's discuss how I can help bring your ideas to life.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                <a href="{{ url_for('main.contact') }}" class="btn btn-light btn-lg">
+                    <i class="bi bi-send-fill me-2"></i>Contact Me Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

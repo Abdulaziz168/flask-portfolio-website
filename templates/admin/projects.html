@@ -1,0 +1,91 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Manage Projects{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Manage Projects</h1>
+    <a href="{{ url_for('admin.create_project') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-2"></i>Create New Project
+    </a>
+</div>
+
+{% if projects.items %}
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects.items %}
+                    <tr>
+                        <td>
+                            <strong>{{ project.title }}</strong><br>
+                            <small class="text-muted">{{ project.description[:80] }}...</small>
+                        </td>
+                        <td><span class="badge bg-primary">{{ project.category }}</span></td>
+                        <td>{{ project.date.strftime('%b %d, %Y') }}</td>
+                        <td>
+                            <a href="{{ url_for('main.project_detail', slug=project.slug) }}" target="_blank" class="btn btn-sm btn-outline-info" title="View">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ url_for('admin.edit_project', id=project.id) }}" class="btn btn-sm btn-outline-primary" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{{ url_for('admin.delete_project', id=project.id) }}" class="btn btn-sm btn-outline-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this project?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+{% if projects.pages > 1 %}
+<nav aria-label="Project pagination" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if projects.has_prev %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('admin.manage_projects', page=projects.prev_num) }}">Previous</a>
+        </li>
+        {% endif %}
+        {% for page_num in projects.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+                <li class="page-item {% if page_num == projects.page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('admin.manage_projects', page=page_num) }}">{{ page_num }}</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+        {% endfor %}
+        {% if projects.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('admin.manage_projects', page=projects.next_num) }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% else %}
+<div class="text-center py-5">
+    <i class="bi bi-folder-x display-1 text-muted"></i>
+    <h3 class="mt-4">No Projects Yet</h3>
+    <p class="text-muted">Create your first project to get started.</p>
+    <a href="{{ url_for('admin.create_project') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-2"></i>Create Project
+    </a>
+</div>
+{% endif %}
+{% endblock %}

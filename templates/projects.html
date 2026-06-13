@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - Portfolio{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header py-5 bg-primary text-white">
+    <div class="container">
+        <div class="text-center" data-aos="fade-down">
+            <h1 class="display-4 fw-bold mb-3">My Projects</h1>
+            <p class="lead">Browse through my portfolio of completed projects</p>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="projects-section py-5">
+    <div class="container">
+        <!-- Search and Filter -->
+        <div class="row mb-5" data-aos="fade-up">
+            <div class="col-lg-8 mx-auto">
+                <form method="GET" action="{{ url_for('main.projects') }}">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" name="search" class="form-control" placeholder="Search projects..." value="{{ search_query or '' }}">
+                        </div>
+                        <div class="col-md-4">
+                            <select name="category" class="form-select">
+                                <option value="">All Categories</option>
+                                {% for cat in categories %}
+                                <option value="{{ cat }}" {% if cat == current_category %}selected{% endif %}>{{ cat }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-search"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Projects Grid -->
+        {% if projects.items %}
+        <div class="row g-4 mb-5">
+            {% for project in projects.items %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
+                <div class="card project-card h-100 border-0 shadow-sm">
+                    <div class="card-img-wrapper">
+                        <img src="{{ project.image or 'https://via.placeholder.com/400x300/6366f1/ffffff?text=' + project.title }}" class="card-img-top" alt="{{ project.title }}">
+                        <div class="card-overlay">
+                            <a href="{{ url_for('main.project_detail', slug=project.slug) }}" class="btn btn-light">
+                                <i class="bi bi-eye me-1"></i>View Details
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2">{{ project.category }}</span>
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text text-muted">{{ project.description[:100] }}...</p>
+                        
+                        <div class="tech-stack mb-3">
+                            {% for tech in project.tech_list[:4] %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                {% if project.github_url %}
+                                <a href="{{ project.github_url }}" target="_blank" class="btn btn-sm btn-outline-dark me-1" title="View Code">
+                                    <i class="bi bi-github"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.live_demo_url %}
+                                <a href="{{ project.live_demo_url }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Live Demo">
+                                    <i class="bi bi-box-arrow-up-right"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                            <small class="text-muted">{{ project.date.strftime('%b %Y') }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if projects.pages > 1 %}
+        <nav aria-label="Project pagination" data-aos="fade-up">
+            <ul class="pagination justify-content-center">
+                {% if projects.has_prev %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('main.projects', page=projects.prev_num, category=current_category, search=search_query) }}">Previous</a>
+                </li>
+                {% endif %}
+                
+                {% for page_num in projects.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                        <li class="page-item {% if page_num == projects.page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('main.projects', page=page_num, category=current_category, search=search_query) }}">{{ page_num }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if projects.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('main.projects', page=projects.next_num, category=current_category, search=search_query) }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        
+        {% else %}
+        <div class="text-center py-5" data-aos="fade-up">
+            <i class="bi bi-folder-x display-1 text-muted"></i>
+            <h3 class="mt-4">No Projects Found</h3>
+            <p class="text-muted">Try adjusting your search or filter criteria.</p>
+            <a href="{{ url_for('main.projects') }}" class="btn btn-primary">
+                <i class="bi bi-arrow-clockwise me-1"></i>Clear Filters
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - Blog{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header py-5 bg-primary text-white">
+    <div class="container">
+        <div class="text-center" data-aos="fade-down">
+            <span class="badge bg-light text-dark mb-3">{{ post.category }}</span>
+            <h1 class="display-5 fw-bold mb-3">{{ post.title }}</h1>
+            <p class="lead mb-3">
+                <i class="bi bi-person-circle me-2"></i>{{ post.author }}
+                <span class="mx-2">•</span>
+                <i class="bi bi-calendar3 me-2"></i>{{ post.date.strftime('%B %d, %Y') }}
+            </p>
+            <div class="tags">
+                {% for tag in post.tag_list %}
+                <span class="badge bg-light text-dark me-1">#{{ tag }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Post Content -->
+<section class="blog-detail py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <article class="blog-post" data-aos="fade-up">
+                    <!-- Featured Image -->
+                    {% if post.image %}
+                    <div class="post-image mb-5">
+                        <img src="{{ post.image }}" alt="{{ post.title }}" class="img-fluid rounded shadow">
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Post Content -->
+                    <div class="post-content">
+                        {{ post.content|safe|replace('\n', '<br>')|safe }}
+                    </div>
+                    
+                    <!-- Post Footer -->
+                    <div class="post-footer mt-5 pt-4 border-top">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div class="tags mb-3">
+                                <strong>Tags:</strong>
+                                {% for tag in post.tag_list %}
+                                <a href="#" class="badge bg-light text-dark text-decoration-none me-1">#{{ tag }}</a>
+                                {% endfor %}
+                            </div>
+                            <div class="share mb-3">
+                                <strong class="me-2">Share:</strong>
+                                <a href="#" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="btn btn-sm btn-outline-info me-1"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Related Posts -->
+                {% if related_posts %}
+                <div class="related-posts mt-5">
+                    <h3 class="mb-4" data-aos="fade-up">Related Posts</h3>
+                    <div class="row g-4">
+                        {% for related in related_posts %}
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <img src="{{ related.image or 'https://via.placeholder.com/400x300/6366f1/ffffff?text=' + related.title }}" class="card-img-top" alt="{{ related.title }}">
+                                <div class="card-body">
+                                    <span class="badge bg-primary mb-2">{{ related.category }}</span>
+                                    <h5 class="card-title">{{ related.title }}</h5>
+                                    <p class="card-text text-muted small">{{ related.excerpt[:80] }}...</p>
+                                    <a href="{{ url_for('main.blog_detail', slug=related.slug) }}" class="btn btn-sm btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Back Button -->
+                <div class="text-center mt-5" data-aos="fade-up">
+                    <a href="{{ url_for('main.blog') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Blog
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Author Card -->
+                <div class="card border-0 shadow-sm mb-4" data-aos="fade-left">
+                    <div class="card-body text-center">
+                        <img src="https://via.placeholder.com/120x120/6366f1/ffffff?text=Author" alt="Author" class="rounded-circle mb-3" style="width: 100px; height: 100px;">
+                        <h5 class="card-title">{{ post.author }}</h5>
+                        <p class="card-text text-muted">Full Stack Developer & Blogger</p>
+                        <div class="social-links">
+                            <a href="#" class="btn btn-sm btn-outline-dark me-1"><i class="bi bi-github"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-info"><i class="bi bi-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Latest Posts -->
+                {% if latest_posts %}
+                <div class="card border-0 shadow-sm mb-4" data-aos="fade-left" data-aos-delay="100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Latest Posts</h5>
+                        <div class="list-group list-group-flush">
+                            {% for latest in latest_posts[:5] %}
+                            <a href="{{ url_for('main.blog_detail', slug=latest.slug) }}" class="list-group-item list-group-item-action border-0 px-0">
+                                <div class="d-flex">
+                                    <img src="{{ latest.image or 'https://via.placeholder.com/60x60/6366f1/ffffff?text=Post' }}" class="rounded me-3" alt="{{ latest.title }}" style="width: 50px; height: 50px; object-fit: cover;">
+                                    <div>
+                                        <h6 class="mb-1 small">{{ latest.title[:40] }}{% if latest.title|length > 40 %}...{% endif %}</h6>
+                                        <small class="text-muted">{{ latest.date.strftime('%b %d') }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Newsletter -->
+                <div class="card border-0 shadow-sm bg-primary text-white" data-aos="fade-left" data-aos-delay="200">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Subscribe</h5>
+                        <p class="card-text">Get the latest posts delivered to your inbox.</p>
+                        <form>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Your email">
+                            </div>
+                            <button type="submit" class="btn btn-light w-100">Subscribe Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
