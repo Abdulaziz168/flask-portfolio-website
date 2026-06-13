@@ -11,10 +11,18 @@ app = create_app()
 def init_sample_data():
     """Initialize database with sample data"""
     with app.app_context():
+        # Create all database tables first
+        print("Creating database tables...")
+        db.create_all()
+        
         # Clear existing data (optional)
         print("Clearing existing data...")
-        Project.query.delete()
-        BlogPost.query.delete()
+        try:
+            Project.query.delete()
+            BlogPost.query.delete()
+        except Exception as e:
+            print(f"Note: {e}")
+            print("Tables are empty or being created for the first time.")
         
         # Sample Projects
         print("Creating sample projects...")

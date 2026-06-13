@@ -35,6 +35,18 @@ if __name__ == '__main__':
             print("✓ Default admin user created (username: admin, password: admin123)")
         
         print("✓ Database initialized successfully")
+        
+        # Check if there's any data
+        project_count = Project.query.count()
+        blog_count = BlogPost.query.count()
+        
+        if project_count == 0 and blog_count == 0:
+            print("\n" + "="*60)
+            print("⚠️  NOTE: Database is empty!")
+            print("="*60)
+            print("To add sample data, run:")
+            print("  python init_data.py")
+            print("="*60 + "\n")
     
     print("\n" + "="*60)
     print("🚀 Portfolio Website Starting...")
