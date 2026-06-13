@@ -71,22 +71,32 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Initialize Database with Sample Data
+### 4. Run the Application (First Time)
+
+```bash
+python run.py
+```
+
+**Important**: On first run, the application will:
+- ✅ Create the database
+- ✅ Create database tables
+- ✅ Create default admin user (admin/admin123)
+
+The application will notify you if the database is empty.
+
+### 5. Add Sample Data (Optional)
+
+To populate the database with sample projects and blog posts:
 
 ```bash
 python init_data.py
 ```
 
-This will create:
-- Default admin user (username: `admin`, password: `admin123`)
+This will add:
 - 6 sample projects
 - 5 sample blog posts
 
-### 5. Run the Application
-
-```bash
-python run.py
-```
+### 6. Access the Application
 
 The application will be available at:
 - **Website**: http://127.0.0.1:5000
